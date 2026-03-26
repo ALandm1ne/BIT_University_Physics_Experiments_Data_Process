@@ -1,0 +1,11 @@
+ln(I)-U linear regression
+k=1.183658
+b=-5.608433
+equation: ln(I)=1.183658*U-5.608433
+R2=0.994683
+
+Fill factor result
+Pmax(mW)=43.176000
+Voc(V)=6.200000
+Isc(mA)=9.900000
+FF=0.703421
