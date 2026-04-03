@@ -138,7 +138,7 @@ def main():
 	plt.plot(rx_merge_plot, p_merge_plot, 'o-', markersize=3, linewidth=1.4, color='tab:green', label='merged P-Rx')
 	plt.scatter(rx_pmax_plot, p_pmax_plot, color='tab:red', s=35, zorder=5, label='Pmax point')
 	plt.annotate(
-		f'Pmax({rx_pmax_plot:.0f} ohm, {p_pmax_plot:.3f} mW)',
+		f'$P_{{max}}$({rx_pmax_plot:.0f} $\Omega$, {p_pmax_plot:.3f} mW)',
 		xy=(rx_pmax_plot, p_pmax_plot),
 		xytext=(offset_x, offset_y),
 		textcoords='offset points',
@@ -160,9 +160,9 @@ def main():
 			'shrinkB': 2
 		}
 	)
-	plt.xlabel('Rx (ohm)', fontsize=12)
+	plt.xlabel(r'$R_x$ ($\Omega$)', fontsize=12)
 	plt.ylabel('P (mW)', fontsize=12)
-	plt.title('P-Rx Curve (merged data2 + data3)', fontsize=14)
+	plt.title('P-Rx Curve', fontsize=14)
 	plt.grid(True, linestyle='--', alpha=0.6)
 	plt.legend()
 	plt.tight_layout()
@@ -194,6 +194,33 @@ def main():
 		f.write(f'Voc(V)={voc_v:.6f}\n')
 		f.write(f'Isc(mA)={isc_ma:.6f}\n')
 		f.write(f'FF={ff:.6f}\n')
+
+	# ---------- 新增：纯粹的 I-U 特性曲线图 ----------
+	# 1. 整理并按电压 U 升序排列数据
+	sort_idx_iu = np.argsort(u_all)
+	u_plot_iu = u_all[sort_idx_iu]
+	i_plot_iu = i_all[sort_idx_iu]
+
+	plt.figure(figsize=(8, 6))
+	
+	# 2. 绘制 I-U 曲线
+	plt.plot(u_plot_iu, i_plot_iu, 'o-', color='tab:blue', markersize=4, linewidth=1.5, label='I-U Curve')
+	
+	# 3. 标注关键点 Voc 和 Isc
+	plt.scatter(voc_v, 0, color='red', marker='x', s=80, zorder=5, label=f'Voc={voc_v:.2f}V')
+	plt.scatter(0, isc_ma, color='red', marker='x', s=80, zorder=5, label=f'Isc={isc_ma:.2f}mA')
+
+	plt.xlabel('U/V', fontsize=12)
+	plt.ylabel('I/mA', fontsize=12)
+	plt.title('I-U Curve', fontsize=14)
+	plt.grid(True, linestyle='--', alpha=0.6)
+	plt.legend()
+	plt.tight_layout()
+	
+	# 保存图片
+	plt.savefig(BASE_DIR / 'output_IU_curve.png', dpi=300)
+	print("已生成纯净版 I-U 曲线图：output_IU_curve.png")
+
 
 	plt.show()
 
