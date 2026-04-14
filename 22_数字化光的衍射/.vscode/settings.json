@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^set -e\ncd '/home/alandm1ne/code/BIT_University_Physics_Experiments_Data_Process/22_数字化光的衍射'\nsource \"\\$\\(conda info --base\\)/etc/profile\\.d/conda\\.sh\"\nconda activate data\npython plot_diffraction_runs\\.py\nls -l run_1\\.png run_2\\.png run_3\\.png run_4\\.png$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
